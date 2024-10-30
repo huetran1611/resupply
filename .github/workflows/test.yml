@@ -6,8 +6,9 @@ permissions:
   contents: read
 
 jobs:
-  name: Run test
-  runs-on: ubuntu-lates
-  steps:
-    - name: Run Python test
-      run: python 1_0.3.py
+  test:
+    name: Run test
+    runs-on: ubuntu-lates
+    steps:
+      - name: Run Python test
+        run: python 1_0.3.py
