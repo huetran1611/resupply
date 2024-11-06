@@ -4,19 +4,18 @@ import random
 import numpy
 import queue
 import time
-
 import Data
 import Neighborhood
 import Neighborhood_for_TSP
 import Neighborhood_drone
-
+import os
 global start_time1
 global start_time
 global start_time2
 
 index_truck_of_cities = [0] * Data.number_of_cities
 epsilon = (-1)*0.00001
-
+similarity = float(os.getenv('SIMILARITY', '0.6'))
 def update_per_loop(solution):
     global index_truck_of_cities
     index_truck_of_cities = [0] * Data.number_of_cities
@@ -1482,7 +1481,7 @@ def Compare_two_solution_2(solution1, solution2):
     # print("vs")
     # print(solution2[0])
     # print(total_score)
-    if total_score > 0.6 * (Data.number_of_cities - 1):
+    if total_score > similarity * (Data.number_of_cities - 1):
         return True
     else:
         return False

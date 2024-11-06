@@ -26,7 +26,7 @@ global SET_LAST_10
 global BEST
 
 # Set up chỉ số -------------------------------------------------------------------
-ITE = 1
+ITE = 10
 epsilon = (-1) * 0.00001
 # 15:   120,    20:    150
 # BREAKLOOP = Data.number_of_cities * 8
@@ -38,7 +38,7 @@ delta = float(os.getenv('DELTA', '0.3'))
 alpha = json.loads(os.getenv('ALPHA', '[0.5, 0.3, 0.1]'))
 END_SEGMENT = int(os.getenv('END_SEGMENT', '100'))
 data_set = os.getenv('DATA_SET', 'C101_0.5.dat')
-SEGMENT = 100
+SEGMENT = 10
 solution_pack_len = 0
 TIME_LIMIT = 20000
 def roulette_wheel_selection(population, fitness_scores):
@@ -77,7 +77,7 @@ def Tabu_search(init_solution, tabu_tenure, CC, first_time, Data1, index_conside
 
     
     T = 0
-    nei_set = [0, 1, 2, 3, 4]
+    nei_set = [0, 1, 2, 3]
     weight = [1/len(nei_set)]*len(nei_set)
     current_sol = init_solution
     
@@ -104,11 +104,8 @@ def Tabu_search(init_solution, tabu_tenure, CC, first_time, Data1, index_conside
             current_neighborhood = []
             choose = roulette_wheel_selection(nei_set, weight)
             if choose == 0:
-                current_neighborhood1, solution_pack = Neighborhood.Neighborhood_combine_truck_and_drone_neighborhood_with_tabu_list_with_package(name_of_truck_neiborhood=Neighborhood10.Neighborhood_one_otp, solution=current_sol, number_of_potial_solution=CC, number_of_loop_drone=2, tabu_list=Tabu_Structure, tabu_tenure=tabu_tenure,  index_of_loop=lenght_i[1], best_fitness=best_fitness, kind_of_tabu_structure=1, need_truck_time=True, solution_pack=solution_pack, solution_pack_len=solution_pack_len, use_solution_pack=first_time, index_consider_elite_set=index_consider_elite_set)
+                current_neighborhood1, solution_pack = Neighborhood.Neighborhood_combine_truck_and_drone_neighborhood_with_tabu_list_with_package(name_of_truck_neiborhood=Neighborhood10.Neighborhood_one_opt_standard, solution=current_sol, number_of_potial_solution=CC, number_of_loop_drone=2, tabu_list=Tabu_Structure, tabu_tenure=tabu_tenure,  index_of_loop=lenght_i[1], best_fitness=best_fitness, kind_of_tabu_structure=1, need_truck_time=False, solution_pack=solution_pack, solution_pack_len=solution_pack_len, use_solution_pack=first_time, index_consider_elite_set=index_consider_elite_set)
                 current_neighborhood.append([1, current_neighborhood1])
-            elif choose == 1:
-                current_neighborhood2, solution_pack = Neighborhood.Neighborhood_combine_truck_and_drone_neighborhood_with_tabu_list_with_package(name_of_truck_neiborhood=Neighborhood10.Neighborhood_one_otp_plus, solution=current_sol, number_of_potial_solution=CC, number_of_loop_drone=2, tabu_list=Tabu_Structure, tabu_tenure=tabu_tenure,  index_of_loop=lenght_i[1], best_fitness=best_fitness, kind_of_tabu_structure=2, need_truck_time=True, solution_pack=solution_pack, solution_pack_len=solution_pack_len, use_solution_pack=first_time, index_consider_elite_set=index_consider_elite_set)
-                current_neighborhood.append([2, current_neighborhood2])
             elif choose == 2:
                 current_neighborhood5, solution_pack = Neighborhood.Neighborhood_combine_truck_and_drone_neighborhood_with_tabu_list_with_package(name_of_truck_neiborhood=Neighborhood11.Neighborhood_two_opt_tue, solution=current_sol, number_of_potial_solution=CC, number_of_loop_drone=2, tabu_list=Tabu_Structure3, tabu_tenure=tabu_tenure3,  index_of_loop=lenght_i[5], best_fitness=best_fitness, kind_of_tabu_structure=5, need_truck_time=False, solution_pack=solution_pack, solution_pack_len=solution_pack_len, use_solution_pack=first_time, index_consider_elite_set=index_consider_elite_set)
                 current_neighborhood.append([5, current_neighborhood5])
@@ -337,11 +334,10 @@ def Tabu_search(init_solution, tabu_tenure, CC, first_time, Data1, index_conside
         # print(T, best_sol, "\n", best_fitness)
         # print(used, score, sum(used))
 
-        T += 1
-        # if best_fitness - prev_f < epsilon:
-        #     T = 0
-        # else: 
-        #     T += 1
+        if best_fitness - prev_f < epsilon:
+            T = 0
+        else: 
+            T += 1
         
     return best_sol, best_fitness, Result_print, solution_pack, Data1
     
