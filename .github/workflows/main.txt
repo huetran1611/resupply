@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        number_of_cities: [50]
+        number_of_cities: [30, 50]
         similarity: [0.6, 0.7, 0.5]
-        solution_pack_len: [0, 2, 5, 10]
+        solution_pack_len: [0, 2, 5]
         data_set: ["C101_0.5.dat", "C101_2.dat", "C101_3.dat", "C201_0.5.dat", "C201_2.dat", "C201_3.dat", "R101_0.5.dat", "R101_2.dat", "R101_3.dat", "RC101_0.5.dat", "RC101_2.dat", "RC101_3.dat"]
     steps:
       - name: Checkout repository
@@ -27,7 +27,7 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements.txt
         
-      - name: Run main.py ITE-1
+      - name: Run main.py ITE-2
         run: python test_similarity.py
         env:
             NUMBER_OF_CITIES: ${{ matrix.number_of_cities }}
