@@ -37,11 +37,11 @@ number_of_cities = int(os.getenv('NUMBER_OF_CITIES'))
 delta = 0.3
 alpha = [0.5, 0.3, 0.1]
 data_set = str(os.getenv('DATA_SET'))
-SEGMENT = 3
+SEGMENT = 5
 solution_pack_len = int(os.getenv('SOLUTION_PACK_LEN'))
 similarity = float(os.getenv('SIMILARITY'))
 theta = 2
-TIME_LIMIT = 18000
+TIME_LIMIT = 17000
 def roulette_wheel_selection(population, fitness_scores):
     total_fitness = sum(fitness_scores)
     probabilities = [score / total_fitness for score in fitness_scores]

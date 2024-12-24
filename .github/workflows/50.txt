@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        number_of_cities: [30]
+        number_of_cities: [50]
         similarity: [0.6, 0.7, 0.5]
         solution_pack_len: [0, 2, 5, 10]
         # data_set: ["C101_0.5.dat", "RC101_3.dat"]
@@ -29,7 +29,7 @@ jobs:
         run: pip install -r requirements.txt
         
       - name: Run main.py ITE-3
-        run: python test_similarity.py
+        run: python div.py
         env:
             NUMBER_OF_CITIES: ${{ matrix.number_of_cities }}
             SIMILARITY: ${{ matrix.similarity }}  # Added correct matrix variable
@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: json-results-${{ matrix.number_of_cities }}-${{ matrix.similarity }}-${{ matrix.solution_pack_len }}-${{ matrix.data_set }}  # Thêm iteration vào tên file
-          path: Random_*_withoutdiv.json
+          path: Random_*_div.json
 
   continue:
     name: Run test with multiple configurations
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        number_of_cities: [30]
+        number_of_cities: [50]
         similarity: [0.6, 0.7, 0.5]
         solution_pack_len: [0, 2, 5, 10]
         # data_set: ["C101_0.5.dat", "RC101_3.dat"]
@@ -71,7 +71,7 @@ jobs:
           path: .
           
       - name: Run main.py ITE-3
-        run: python final_without.py
+        run: python final_div.py
         env:
             NUMBER_OF_CITIES: ${{ matrix.number_of_cities }}
             SIMILARITY: ${{ matrix.similarity }}  # Added correct matrix variable
@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: excel-results-${{ matrix.number_of_cities }}-${{ matrix.similarity }}-${{ matrix.solution_pack_len }}-${{ matrix.data_set }}  # Thêm iteration vào tên file
-          path: Random_*_withoutdiv.xlsx
+          path: Random_*_div.xlsx
 
   summary-div:
     name: Summary results
@@ -102,4 +102,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: excel-results-summary
-          path: Random_*_withoutdiv.xlsx
+          path: Random_*_div.xlsx
