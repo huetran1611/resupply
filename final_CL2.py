@@ -35,7 +35,7 @@ SET_LAST_10 = []
 BEST = []
 # 
 number_of_cities = int(os.getenv('NUMBER_OF_CITIES')) 
-delta = 0.3
+delta = 0.6
 alpha = [0.5, 0.3, 0.1]
 theta = 2
 data_set = str(os.getenv('DATA_SET'))
